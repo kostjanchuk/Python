@@ -49,6 +49,22 @@ if n > 1:
     Ans.append(n)
 print('Разложенеи на простые множители')
 print(Ans)
+x = 1
+for i in range(len(Ans)-1):
+    if Ans[i+1] == Ans[i]:
+        x += 1
+    elif x > 1:
+        print(Ans[i], '^', x, '*', end=" ")
+        x = 1
+    else:
+        print(Ans[i], '*', end=" ")
+if x > 1:
+    print(Ans[len(Ans)-1], '^', x)
+else:
+    print(Ans[len(Ans) - 1])
+
+
+print()
 from collections import Counter
 a = {'a': 1, 'b': 4, 't': 67}
 b = {'c': 4, 'e': 1, 'a': 4, 't': 7, 'y': 11}
