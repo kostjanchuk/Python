@@ -1,0 +1,92 @@
+import random
+
+
+r = 'spam and eggs or eggs with spam'
+d = {}
+z = 1
+for i in range(len(r)-1):
+    for k in range(len(r)-1):
+        if r[i] == r[k]:
+            z += 1
+    d[r[i]] = z
+    z = 0
+print('Количество каждого символа в строчке', d)
+
+
+arr = []
+q = int(input("Размер массива "))
+for i in range(q):
+    inputvalue = int(input("Введите значения отсортированого массива: "))
+    arr.append(inputvalue)
+
+a = int(input("Введите искомый элемент "))
+
+left = 0
+right = len(arr)-1
+search=-1
+while left <= right:
+    mid = int((left+right)/2)
+    if a == arr[mid]:
+        search = mid
+        break
+    if arr[mid] < a:
+        left = mid+1
+    elif arr[mid] > a:
+        right = mid-1
+    if search == -1:
+        print('Элемент не найдет')
+    else:
+        print(arr[mid], 'Индекс элемента ', mid)
+        break
+
+s = str(input('Введите строку ')).lower()
+print(s)
+
+s1 = s[::-1]
+print(s1)
+
+if s == s1:
+    print('строка является палиндромом')
+else:
+    print('строка не является палиндромом')
+
+
+str1 = str(input('Введите строку '))
+if str1[len(str1)-1] != '.' and str1[len(str1)-1] != '?':
+    str1 = str1+'.'
+start = 0
+z = 0
+for i in range(len(str1)):
+    if str1[i] == ' ' or str1[i] == '.' or str1[i] == ',' or str1[i] == '!' or str1[i] == '?' or str1[i] == ':'or str1[i] == ';' or str1[i] == '-':
+        for j in range(i-1, start-1, -1):
+            print(str1[j], end="")
+        print(str1[i], end="")
+        start = i + 1
+print()
+str2 = 'English = 78 Science = 83 Math = 68 History = 65'
+print(str2)
+str3 = str2.split(' ')
+sum = 0
+for numbers in str3:
+    try:
+        value = int(numbers)
+        sum += value
+    except:
+        pass
+print('Cумма чисел строки ', sum)
+
+
+a = input('Введите длину пароля ')
+parol = []
+if a.isdigit():
+    if int(a) >= 1:
+        for i in range(int(a)):
+            value = random.choice('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+            parol.append(value)
+        print(parol)
+    else:
+        print("Завершение программы")
+else:
+    print("Пароль нельзя создать")
+
+
