@@ -1,0 +1,94 @@
+x = -1
+y = 2
+lab =[[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, x, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+      [1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1],
+      [1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1],
+      [1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1],
+      [1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1],
+      [1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1],
+      [1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1],
+      [1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1],
+      [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+      [1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1],
+      [1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+      [1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1],
+      [1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, y, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+
+for x in range(len(lab)):
+    for y in range(len(lab[0])):
+        if lab[x][y] == -1:
+            start_x = (x, y)
+
+print('Начало маршрута ', start_x)
+
+
+for x in range(len(lab)):
+    for y in range(len(lab[0])):
+        if lab[x][y] == 2:
+            end_y = (x, y)
+print('Конец маршрута ', end_y)
+
+
+lab1 = lab
+for y in range(0, len(lab1)):
+    for x in range(0, len(lab[y])):
+        if lab[y][x] == 1:
+            lab[y][x] =-1
+
+lab1[start_x[0]][start_x[1]] = 1
+lab1[end_y[0]][end_y[1]] = 0
+
+for yy in range(0, len(lab1)-1):
+       for xx in range(0, len(lab1[yy])-1):
+
+            for y in range(0, len(lab1) - 1):
+                for x in range(0, len(lab1[y]) - 1):
+                    if lab1[y][x] != '':
+
+                        # left
+                        if lab1[y - 1][x] != '' and lab1[y - 1][x] == 0 and lab1[y][x] != 0:
+                            lab1[y - 1][x] = int(lab1[y][x]) + 1
+                        # forward
+                        if lab1[y][x + 1] != '' and lab1[y][x + 1] == 0 and lab1[y][x] != 0:
+                            lab1[y][x + 1] = int(lab1[y][x]) + 1
+                        # right
+                        if lab1[y + 1][x] != '' and lab1[y + 1][x] == 0 and lab1[y][x] != 0:
+                            lab1[y + 1][x] = int(lab1[y][x]) + 1
+                        # back
+                        if lab1[y][x - 1] != '' and lab1[y][x - 1] == 0 and lab1[y][x] != 0:
+                            lab1[y][x - 1] = int(lab1[y][x]) + 1
+x = end_y[1]
+y = end_y[0]
+value = lab1[end_y[0]][end_y[1]] 
+was = list(range(value))
+while value:
+    value -= 1
+    if y > 0 and lab1[y - 1][x] == value:
+        was[value] = (y, x)
+        y -= 1
+    elif y < (len(lab1) - 1) and lab1[y + 1][x] == value:
+        was[value] = (y, x)
+        y += 1
+    elif x > 0 and lab1[y][x - 1] == value:
+        was[value] = (y, x)
+        x -= 1
+    elif x < (len(lab1[y]) - 1) and lab1[y][x + 1] == value:
+        was[value] = (y, x)
+        x += 1
+print('Список значений для пути кратчайшего маршрута ')
+print(was)
+for i in range(len(was)-1):
+    lab1[was[i+1][0]][was[i+1][1]] = ''
+print('Илюстрация маршрута(1 - начало маршрута)')
+for i in lab1:
+    for line in i:
+        print("{:^3}".format(line), end=",")
+    print("")
+
